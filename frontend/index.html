@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Supply Chain Risk Monitor</title>
+  </head>
+  <body>
+    <header class="top">
+      <div>
+        <h1>Supply Chain Risk Monitor</h1>
+        <p class="muted" id="asof">Loading…</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="kpis" id="kpis"></section>
+
+      <section class="card summary">
+        <h2>Risk summary</h2>
+        <p id="summary-text" class="muted">Loading…</p>
+      </section>
+
+      <div class="grid">
+        <section class="card">
+          <div class="card-head">
+            <h2>Stockout risk by SKU</h2>
+            <div class="filters" role="group" aria-label="Filter by risk level">
+              <button data-level="" class="active">All</button>
+              <button data-level="high">High</button>
+              <button data-level="medium">Medium</button>
+              <button data-level="low">Low</button>
+            </div>
+          </div>
+          <p class="hint">Probability of running out before a new order could arrive. Click a row to see its forecast.</p>
+          <div class="table-wrap">
+            <table id="stockout-table">
+              <thead>
+                <tr>
+                  <th>SKU</th>
+                  <th>Supplier</th>
+                  <th class="num">Cover (wks)</th>
+                  <th class="num">Lead time</th>
+                  <th class="num">Stockout P</th>
+                  <th class="num">Shortfall €</th>
+                  <th class="num">Order qty</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <h2 id="forecast-title">Demand forecast</h2>
+          </div>
+          <p class="hint">Last 52 weeks of demand and the 12-week forecast with its p10–p90 band.</p>
+          <div class="chart-box"><canvas id="forecast-chart"></canvas></div>
+        </section>
+      </div>
+
+      <div class="grid">
+        <section class="card">
+          <h2>Supplier risk</h2>
+          <p class="hint">Score 0–100 from on-time rate, lead-time variability and average delay.</p>
+          <div class="table-wrap">
+            <table id="supplier-table">
+              <thead>
+                <tr>
+                  <th>Supplier</th>
+                  <th class="num">On time</th>
+                  <th class="num">Avg lead</th>
+                  <th class="num">Avg delay</th>
+                  <th>Risk score</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Forecast accuracy (backtest)</h2>
+          <p class="hint" id="backtest-hint">WAPE across 3 rolling origins × 12 weeks. Lower is better.</p>
+          <div class="chart-box short"><canvas id="backtest-chart"></canvas></div>
+        </section>
+      </div>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
